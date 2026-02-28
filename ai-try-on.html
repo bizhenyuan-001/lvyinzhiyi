@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI试穿 - 绿韵智衣</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0fde00, #1da013);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        .back-button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .ai-try-on-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #2e7d32;
+            margin-bottom: 2rem;
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .product-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .product-image {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 1rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            color: #0fde00;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-points {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-details {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .product-details h4 {
+            color: #333;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .product-details p {
+            color: #666;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .environmental-info {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #0fde00;
+        }
+        
+        .environmental-info h4 {
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .environmental-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .environmental-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .environmental-item .label {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .environmental-item .value {
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .ai-try-on-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .model-selection {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+        
+        .model-selection h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0fde00;
+            display: inline-block;
+        }
+        
+        .model-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .model-option {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid transparent;
+        }
+        
+        .model-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .model-option.selected {
+            border-color: #0fde00;
+            background: rgba(15, 222, 0, 0.1);
+        }
+        
+        .model-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #e9ecef;
+            margin: 0 auto 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #666;
+        }
+        
+        .model-name {
+            font-size: 0.9rem;
+            color: #333;
+        }
+        
+        .options-section {
+            margin-top: 2rem;
+        }
+        
+        .options-section h4 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .size-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .size-option {
+            padding: 0.5rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            font-weight: bold;
+        }
+        
+        .size-option:hover {
+            border-color: #0fde00;
+            transform: scale(1.05);
+        }
+        
+        .size-option.selected {
+            border-color: #0fde00;
+            background: rgba(15, 222, 0, 0.1);
+            color: #0fde00;
+        }
+        
+        .color-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.selected {
+            border-color: #0fde00;
+            box-shadow: 0 0 10px rgba(15, 222, 0, 0.3);
+        }
+        
+        .color-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .try-on-preview {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+        
+        .try-on-preview h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0fde00;
+            display: inline-block;
+        }
+        
+        .preview-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .preview-image {
+            width: 300px;
+            height: 400px;
+            background: #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #666;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .preview-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .view-options {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .view-btn {
+            padding: 0.5rem 1rem;
+            background: #e9ecef;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .view-btn:hover {
+            background: #dee2e6;
+        }
+        
+        .view-btn.active {
+            background: #0fde00;
+            color: white;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        
+        .try-on-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 150px;
+            justify-content: center;
+        }
+        
+        .try-on-button:hover {
+            background: linear-gradient(135deg, #5a6fd8, #6a4190);
+            transform: scale(1.02);
+        }
+        
+        .try-on-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .buy-button {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 150px;
+            justify-content: center;
+        }
+        
+        .buy-button:hover {
+            background: linear-gradient(135deg, #ff5252, #ff7043);
+            transform: scale(1.02);
+        }
+        
+        .add-cart-button {
+            background: linear-gradient(135deg, #0fde00, #1da013);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 150px;
+            justify-content: center;
+        }
+        
+        .add-cart-button:hover {
+            background: linear-gradient(135deg, #0dc900, #1a8f11);
+            transform: scale(1.02);
+        }
+        
+        .favorite-button {
+            background: white;
+            color: #666;
+            border: 2px solid #ddd;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .favorite-button:hover {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+        
+        .favorite-button.active {
+            background: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+        
+        .share-button {
+            background: white;
+            color: #666;
+            border: 2px solid #ddd;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .share-button:hover {
+            border-color: #4CAF50;
+            color: #4CAF50;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(15, 222, 0, 0.3);
+            border-radius: 50%;
+            border-top-color: #0fde00;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .recommendations {
+            margin-top: 3rem;
+        }
+        
+        .recommendations h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+        
+        .recommended-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .recommended-product {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .recommended-product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+        
+        .recommended-product-image {
+            width: 100%;
+            height: 150px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .recommended-product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recommended-product-info {
+            padding: 1rem;
+        }
+        
+        .recommended-product-name {
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            height: 40px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .recommended-product-price {
+            font-size: 1rem;
+            color: #0fde00;
+            font-weight: bold;
+        }
+        
+        .history-section {
+            margin-top: 2rem;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+        
+        .history-section h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .clear-history-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-history-btn:hover {
+            background: #ff5252;
+        }
+        
+        .history-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 8px;
+            padding: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .history-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .history-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .history-item-name {
+            font-size: 0.85rem;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+        
+        .history-item-details {
+            font-size: 0.75rem;
+            color: #666;
+        }
+        
+        .size-chart-btn {
+            background: white;
+            color: #666;
+            border: 2px solid #ddd;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-left: 0.5rem;
+        }
+        
+        .size-chart-btn:hover {
+            border-color: #0fde00;
+            color: #0fde00;
+        }
+        
+        .size-chart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .size-chart-modal.show {
+            display: flex;
+        }
+        
+        .size-chart-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .size-chart-content h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close-modal-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .size-chart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .size-chart-table th,
+        .size-chart-table td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        
+        .size-chart-table th {
+            background: #0fde00;
+            color: white;
+        }
+        
+        .size-chart-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .recommend-size-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+        
+        .recommend-size-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .save-tryon-btn {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .save-tryon-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .save-tryon-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .compare-section {
+            margin-top: 2rem;
+            background: #fff3e0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .compare-section h3 {
+            color: #e65100;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .compare-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .compare-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px dashed #ddd;
+        }
+        
+        .compare-item.has-content {
+            border-style: solid;
+            border-color: #ff9800;
+        }
+        
+        .compare-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .compare-btn {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+        
+        .compare-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        @media (max-width: 768px) {
+            .ai-try-on-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .product-image {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .preview-image {
+                width: 250px;
+                height: 350px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .try-on-button,
+            .buy-button,
+            .add-cart-button,
+            .favorite-button,
+            .share-button,
+            .save-tryon-btn {
+                width: 100%;
+            }
+            
+            .history-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .compare-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>绿韵智衣 - AI试穿</span>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn" onclick="shareTryOn()">
+                    <i class="fas fa-share-alt"></i>
+                    分享
+                </button>
+                <button class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                    返回商品列表
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="ai-try-on-section">
+            <h2 class="section-title">
+                <i class="fas fa-robot"></i> AI智能试穿
+            </h2>
+            
+            <div class="product-info" id="productInfo">
+                <div class="product-image">
+                    <img id="productImage" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=loading%20placeholder%20eco-friendly%20clothing&amp;image_size=square" alt="商品图片">
+                </div>
+                <h3 class="product-name" id="productName">加载中...</h3>
+                <div class="product-price" id="productPrice">¥0.00</div>
+                <div class="product-points" id="productPoints">购买可获 0 碳足迹积分</div>
+            </div>
+            
+            <div class="product-details">
+                <h4><i class="fas fa-info-circle"></i> 产品详情</h4>
+                <p id="productMaterial"><strong>材质：</strong> 100%可降解环保材料</p>
+                <p id="productFeatures"><strong>特点：</strong> 透气舒适、亲肤柔软、抗菌除臭</p>
+                <p id="productSeason"><strong>适合季节：</strong> 春秋冬夏四季皆宜</p>
+                <p id="productWash"><strong>洗涤说明：</strong> 30℃以下水洗，避免长时间浸泡</p>
+                <p id="productEco"><strong>环保理念：</strong> 采用生物降解技术，使用后可自然降解，减少对环境的污染</p>
+            </div>
+            
+            <div class="environmental-info">
+                <h4><i class="fas fa-leaf"></i> 环保指标</h4>
+                <div class="environmental-grid">
+                    <div class="environmental-item">
+                        <div class="label">碳足迹</div>
+                        <div class="value" id="carbonFootprint">2.5kg CO₂</div>
+                    </div>
+                    <div class="environmental-item">
+                        <div class="label">降解周期</div>
+                        <div class="value" id="degradationPeriod">180天</div>
+                    </div>
+                    <div class="environmental-item">
+                        <div class="label">原料</div>
+                        <div class="value" id="envMaterial">有机棉</div>
+                    </div>
+                    <div class="environmental-item">
+                        <div class="label">产地</div>
+                        <div class="value" id="envOrigin">新疆阿克苏</div>
+                    </div>
+                    <div class="environmental-item">
+                        <div class="label">认证</div>
+                        <div class="value" id="envCertification">GOTS有机认证</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ai-try-on-content">
+                <div class="model-selection">
+                    <h3><i class="fas fa-user"></i> 选择模特</h3>
+                    <div class="model-options" id="modelOptions">
+                        <div class="model-option selected" data-model="model1">
+                            <div class="model-avatar">👨‍🦰</div>
+                            <div class="model-name">青年男士</div>
+                        </div>
+                        <div class="model-option" data-model="model2">
+                            <div class="model-avatar">👩‍🦰</div>
+                            <div class="model-name">青年女士</div>
+                        </div>
+                        <div class="model-option" data-model="model3">
+                            <div class="model-avatar">👨‍🦱</div>
+                            <div class="model-name">中年男士</div>
+                        </div>
+                        <div class="model-option" data-model="model4">
+                            <div class="model-avatar">👩‍🦱</div>
+                            <div class="model-name">中年女士</div>
+                        </div>
+                        <div class="model-option" data-model="model5">
+                            <div class="model-avatar">👴</div>
+                            <div class="model-name">老年男士</div>
+                        </div>
+                        <div class="model-option" data-model="model6">
+                            <div class="model-avatar">👵</div>
+                            <div class="model-name">老年女士</div>
+                        </div>
+                    </div>
+                    
+                    <div class="options-section">
+                        <h4><i class="fas fa-tshirt"></i> 选择尺码 <button class="size-chart-btn" onclick="showSizeChart()"><i class="fas fa-ruler-combined"></i> 尺码表</button></h4>
+                        <div class="size-options" id="sizeOptions">
+                            <div class="size-option selected">XS</div>
+                            <div class="size-option">S</div>
+                            <div class="size-option">M</div>
+                            <div class="size-option">L</div>
+                            <div class="size-option">XL</div>
+                            <div class="size-option">XXL</div>
+                        </div>
+                        <button class="recommend-size-btn" onclick="recommendSize()">
+                            <i class="fas fa-magic"></i> 智能推荐尺码
+                        </button>
+                    </div>
+                    
+                    <div class="options-section">
+                        <h4><i class="fas fa-palette"></i> 选择颜色</h4>
+                        <div class="color-options" id="colorOptions">
+                            <div class="color-option selected" style="background: #2c3e50;" data-color="深色"></div>
+                            <div class="color-option" style="background: #ecf0f1;" data-color="白色"></div>
+                            <div class="color-option" style="background: #3498db;" data-color="蓝色"></div>
+                            <div class="color-option" style="background: #e74c3c;" data-color="红色"></div>
+                            <div class="color-option" style="background: #27ae60;" data-color="绿色"></div>
+                            <div class="color-option" style="background: #f39c12;" data-color="黄色"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="options-section">
+                        <h4><i class="fas fa-sliders-h"></i> 调整参数</h4>
+                        <label style="display: block; margin-bottom: 1rem; color: #333;">
+                            <strong>体型：</strong>
+                            <select style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; width: 100%; margin-top: 0.5rem;" id="bodyType">
+                                <option value="standard">标准体型</option>
+                                <option value="slim">偏瘦</option>
+                                <option value="athletic">肌肉型</option>
+                                <option value="plus">偏胖</option>
+                            </select>
+                        </label>
+                        <label style="display: block; margin-bottom: 1rem; color: #333;">
+                            <strong>身高：</strong>
+                            <input type="range" min="150" max="190" value="170" style="width: 100%; margin-top: 0.5rem;" id="height">
+                            <span style="display: block; text-align: center; margin-top: 0.5rem; color: #666;" id="heightValue">170cm</span>
+                        </label>
+                        <label style="display: block; margin-bottom: 1rem; color: #333;">
+                            <strong>体重：</strong>
+                            <input type="range" min="40" max="100" value="60" style="width: 100%; margin-top: 0.5rem;" id="weight">
+                            <span style="display: block; text-align: center; margin-top: 0.5rem; color: #666;" id="weightValue">60kg</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="try-on-preview">
+                    <h3><i class="fas fa-eye"></i> 试穿预览</h3>
+                    <div class="view-options">
+                        <button class="view-btn active" data-view="front"><i class="fas fa-user"></i> 正面</button>
+                        <button class="view-btn" data-view="side"><i class="fas fa-user-tie"></i> 侧面</button>
+                        <button class="view-btn" data-view="back"><i class="fas fa-user-circle"></i> 背面</button>
+                    </div>
+                    <div class="preview-container">
+                        <div class="preview-image" id="previewImage">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="try-on-button" id="tryOnButton" onclick="startTryOn()">
+                                <i class="fas fa-play"></i>
+                                开始AI试穿
+                            </button>
+                            <button class="add-cart-button" onclick="addToCart()">
+                                <i class="fas fa-cart-plus"></i>
+                                加入购物车
+                            </button>
+                            <button class="buy-button" onclick="buyNow()">
+                                <i class="fas fa-shopping-cart"></i>
+                                立即购买
+                            </button>
+                            <button class="save-tryon-btn" id="saveTryOnBtn" onclick="saveTryOn()" disabled>
+                                <i class="fas fa-save"></i>
+                                保存效果
+                            </button>
+                            <button class="favorite-button" id="favoriteBtn" onclick="toggleFavorite()">
+                                <i class="far fa-heart"></i>
+                                收藏
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="loading" id="loading">
+                        <div class="loading-spinner"></div>
+                        <p>AI正在生成试穿效果，请稍候...</p>
+                        <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">
+                            <i class="fas fa-info-circle"></i> 正在根据您选择的参数优化试穿效果
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="compare-section">
+                <h3><i class="fas fa-columns"></i> 效果对比</h3>
+                <div class="compare-container">
+                    <div class="compare-item" id="compareItem1">
+                        <div style="color: #999; padding: 2rem;">
+                            <i class="fas fa-plus-circle" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                            <p>点击添加到对比1</p>
+                        </div>
+                        <button class="compare-btn" onclick="addToCompare(1)">添加到对比1</button>
+                    </div>
+                    <div class="compare-item" id="compareItem2">
+                        <div style="color: #999; padding: 2rem;">
+                            <i class="fas fa-plus-circle" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                            <p>点击添加到对比2</p>
+                        </div>
+                        <button class="compare-btn" onclick="addToCompare(2)">添加到对比2</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recommendations">
+                <h3><i class="fas fa-thumbs-up"></i> 推荐搭配</h3>
+                <div class="recommended-products">
+                    <div class="recommended-product" onclick="switchProduct(2)">
+                        <div class="recommended-product-image">
+                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bamboo%20fiber%20sports%20pants%20breathable%20comfortable%20lightweight%20athletic%20style&amp;image_size=square" alt="推荐商品">
+                        </div>
+                        <div class="recommended-product-info">
+                            <div class="recommended-product-name">竹纤维运动裤 - 透气亲肤</div>
+                            <div class="recommended-product-price">¥129.90</div>
+                        </div>
+                    </div>
+                    <div class="recommended-product" onclick="switchProduct(3)">
+                        <div class="recommended-product-image">
+                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=linen%20dress%20natural%20elegant%20summer%20style%20flowy%20lightweight&amp;image_size=square" alt="推荐商品">
+                        </div>
+                        <div class="recommended-product-info">
+                            <div class="recommended-product-name">麻质连衣裙 - 自然优雅</div>
+                            <div class="recommended-product-price">¥159.90</div>
+                        </div>
+                    </div>
+                    <div class="recommended-product" onclick="switchProduct(7)">
+                        <div class="recommended-product-image">
+                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=linen%20shirt%20fresh%20summer%20cool%20breathable%20casual%20style&amp;image_size=square" alt="推荐商品">
+                        </div>
+                        <div class="recommended-product-info">
+                            <div class="recommended-product-name">亚麻衬衫 - 清爽夏日</div>
+                            <div class="recommended-product-price">¥149.90</div>
+                        </div>
+                    </div>
+                    <div class="recommended-product" onclick="switchProduct(10)">
+                        <div class="recommended-product-image">
+                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=organic%20cotton%20sweatshirt%20soft%20warm%20comfortable%20casual%20style&amp;image_size=square" alt="推荐商品">
+                        </div>
+                        <div class="recommended-product-info">
+                            <div class="recommended-product-name">有机棉卫衣 - 柔软保暖</div>
+                            <div class="recommended-product-price">¥169.90</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="history-section">
+                <h3>
+                    <span><i class="fas fa-history"></i> 历史试穿记录</span>
+                    <button class="clear-history-btn" onclick="clearHistory()">
+                        <i class="fas fa-trash"></i> 清空记录
+                    </button>
+                </h3>
+                <div class="history-list" id="historyList">
+                    <div style="text-align: center; color: #999; padding: 2rem; width: 100%;">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <p>暂无试穿记录</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="size-chart-modal" id="sizeChartModal">
+        <div class="size-chart-content">
+            <h3>
+                <span><i class="fas fa-ruler-combined"></i> 尺码参考表</span>
+                <button class="close-modal-btn" onclick="closeSizeChart()">&times;</button>
+            </h3>
+            <table class="size-chart-table">
+                <thead>
+                    <tr>
+                        <th>尺码</th>
+                        <th>身高(cm)</th>
+                        <th>体重(kg)</th>
+                        <th>胸围(cm)</th>
+                        <th>腰围(cm)</th>
+                        <th>臀围(cm)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>XS</td>
+                        <td>155-160</td>
+                        <td>40-45</td>
+                        <td>78-82</td>
+                        <td>60-64</td>
+                        <td>82-86</td>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td>160-165</td>
+                        <td>45-52</td>
+                        <td>82-86</td>
+                        <td>64-68</td>
+                        <td>86-90</td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>165-170</td>
+                        <td>52-60</td>
+                        <td>86-90</td>
+                        <td>68-72</td>
+                        <td>90-94</td>
+                    </tr>
+                    <tr>
+                        <td>L</td>
+                        <td>170-175</td>
+                        <td>60-68</td>
+                        <td>90-94</td>
+                        <td>72-76</td>
+                        <td>94-98</td>
+                    </tr>
+                    <tr>
+                        <td>XL</td>
+                        <td>175-180</td>
+                        <td>68-78</td>
+                        <td>94-98</td>
+                        <td>76-80</td>
+                        <td>98-102</td>
+                    </tr>
+                    <tr>
+                        <td>XXL</td>
+                        <td>180-190</td>
+                        <td>78-100</td>
+                        <td>98-106</td>
+                        <td>80-88</td>
+                        <td>102-110</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                <i class="fas fa-info-circle"></i> 注：以上数据仅供参考，因个人体型差异，建议根据实际情况选择合适的尺码。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 产品数据
+        const products = [
+            {
+                id: 1,
+                name: "有机棉T恤 - 环保舒适",
+                price: 89.90,
+                points: 89,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=organic%20cotton%20t-shirt%20eco-friendly%20comfortable%20casual%20style%20plain%20design%20natural%20color&amp;image_size=square",
+                material: "100%有机棉",
+                features: "透气舒适、亲肤柔软、抗菌除臭",
+                season: "春秋冬夏四季皆宜",
+                washInstruction: "30℃以下水洗，避免长时间浸泡",
+                ecoConcept: "采用生物降解技术，使用后可自然降解，减少对环境的污染",
+                environmental: {
+                    carbonFootprint: "2.5kg CO₂",
+                    degradationPeriod: "180天",
+                    material: "有机棉",
+                    origin: "新疆阿克苏",
+                    certification: "GOTS有机认证"
+                }
+            },
+            {
+                id: 2,
+                name: "竹纤维运动裤 - 透气亲肤",
+                price: 129.90,
+                points: 129,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bamboo%20fiber%20sports%20pants%20breathable%20comfortable%20lightweight%20athletic%20style&amp;image_size=square",
+                material: "70%竹纤维 + 30%有机棉",
+                features: "超强透气、吸湿排汗、抗菌抑菌",
+                season: "春夏秋季",
+                washInstruction: "机洗轻柔模式，不可漂白",
+                ecoConcept: "竹纤维可再生，生长过程无需农药化肥，低碳环保",
+                environmental: {
+                    carbonFootprint: "1.8kg CO₂",
+                    degradationPeriod: "120天",
+                    material: "竹纤维",
+                    origin: "浙江安吉",
+                    certification: "OEKO-TEX Standard 100"
+                }
+            },
+            {
+                id: 3,
+                name: "麻质连衣裙 - 自然优雅",
+                price: 159.90,
+                points: 159,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=linen%20dress%20natural%20elegant%20summer%20style%20flowy%20lightweight&amp;image_size=square",
+                material: "100%天然亚麻",
+                features: "透气凉爽、自然垂感、越穿越柔",
+                season: "春夏季",
+                washInstruction: "建议手洗，避免用力揉搓",
+                ecoConcept: "亚麻生长需水量少，是最环保的天然纤维之一",
+                environmental: {
+                    carbonFootprint: "2.2kg CO₂",
+                    degradationPeriod: "90天",
+                    material: "天然亚麻",
+                    origin: "黑龙江哈尔滨",
+                    certification: "有机亚麻认证"
+                }
+            },
+            {
+                id: 4,
+                name: "再生聚酯外套 - 保暖时尚",
+                price: 199.90,
+                points: 199,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=recycled%20polyester%20jacket%20warm%20stylish%20modern%20winter%20outerwear&amp;image_size=square",
+                material: "100%再生聚酯纤维",
+                features: "防风保暖、轻便耐磨、防水抗皱",
+                season: "秋冬季",
+                washInstruction: "机洗常温，低温烘干",
+                ecoConcept: "由回收塑料瓶制成，每件外套节约8个塑料瓶",
+                environmental: {
+                    carbonFootprint: "3.1kg CO₂",
+                    degradationPeriod: "365天",
+                    material: "再生聚酯",
+                    origin: "江苏苏州",
+                    certification: "GRS全球回收标准"
+                }
+            },
+            {
+                id: 5,
+                name: "有机棉内衣套装 - 健康呵护",
+                price: 79.90,
+                points: 79,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=organic%20cotton%20underwear%20set%20healthy%20comfortable%20soft%20basic%20design&amp;image_size=square",
+                material: "100%有机棉",
+                features: "亲肤透气、无荧光剂、健康安全",
+                season: "四季皆宜",
+                washInstruction: "30℃以下水洗，与深色衣物分开",
+                ecoConcept: "有机棉种植不使用农药化肥，对皮肤和环境都友好",
+                environmental: {
+                    carbonFootprint: "1.2kg CO₂",
+                    degradationPeriod: "150天",
+                    material: "有机棉",
+                    origin: "新疆喀什",
+                    certification: "GOTS有机认证"
+                }
+            },
+            {
+                id: 6,
+                name: "竹炭纤维袜子 - 抗菌除臭",
+                price: 29.90,
+                points: 29,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bamboo%20charcoal%20fiber%20socks%20antibacterial%20deodorant%20comfortable%20daily%20wear&amp;image_size=square",
+                material: "80%竹炭纤维 + 20%弹性纤维",
+                features: "抗菌除臭、吸湿透气、柔软舒适",
+                season: "四季皆宜",
+                washInstruction: "可机洗，不可热水浸泡",
+                ecoConcept: "竹炭纤维具有吸附能力，能净化空气和水质",
+                environmental: {
+                    carbonFootprint: "0.3kg CO₂",
+                    degradationPeriod: "100天",
+                    material: "竹炭纤维",
+                    origin: "福建武夷山",
+                    certification: "抗菌产品认证"
+                }
+            },
+            {
+                id: 7,
+                name: "亚麻衬衫 - 清爽夏日",
+                price: 149.90,
+                points: 149,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=linen%20shirt%20fresh%20summer%20cool%20breathable%20casual%20style&amp;image_size=square",
+                material: "100%法国亚麻",
+                features: "透气凉爽、自然纹理、百搭时尚",
+                season: "春夏季",
+                washInstruction: "建议手洗，悬挂晾干",
+                ecoConcept: "法国亚麻品质优良，种植过程环保可持续",
+                environmental: {
+                    carbonFootprint: "2.0kg CO₂",
+                    degradationPeriod: "90天",
+                    material: "法国亚麻",
+                    origin: "法国诺曼底",
+                    certification: "欧洲亚麻认证"
+                }
+            },
+            {
+                id: 8,
+                name: "可降解泳装 - 海洋友好",
+                price: 189.90,
+                points: 189,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=biodegradable%20swimsuit%20ocean%20friendly%20sustainable%20beach%20wear%20stylish&amp;image_size=square",
+                material: "可降解聚乳酸纤维",
+                features: "弹性舒适、速干透气、海洋友好",
+                season: "夏季",
+                washInstruction: "清水冲洗，避免暴晒",
+                ecoConcept: "采用海洋可降解材料，即使不慎丢失也不会污染海洋",
+                environmental: {
+                    carbonFootprint: "1.5kg CO₂",
+                    degradationPeriod: "180天（海水中）",
+                    material: "聚乳酸纤维",
+                    origin: "广东深圳",
+                    certification: "海洋友好认证"
+                }
+            },
+            {
+                id: 9,
+                name: "生物降解牛仔外套 - 复古时尚",
+                price: 259.90,
+                points: 259,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=biodegradable%20denim%20jacket%20vintage%20stylish%20eco-friendly%20retro%20design&amp;image_size=square",
+                material: "生物降解棉牛仔",
+                features: "复古版型、耐磨耐穿、可降解",
+                season: "春秋季",
+                washInstruction: "翻面机洗，避免频繁清洗",
+                ecoConcept: "采用生物降解牛仔面料，减少传统牛仔的环境污染",
+                environmental: {
+                    carbonFootprint: "4.5kg CO₂",
+                    degradationPeriod: "240天",
+                    material: "生物降解棉",
+                    origin: "广东广州",
+                    certification: "可持续牛仔认证"
+                }
+            },
+            {
+                id: 10,
+                name: "有机棉卫衣 - 柔软保暖",
+                price: 169.90,
+                points: 169,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=organic%20cotton%20sweatshirt%20soft%20warm%20comfortable%20casual%20style&amp;image_size=square",
+                material: "100%有机棉抓绒",
+                features: "柔软保暖、亲肤舒适、百搭休闲",
+                season: "秋冬季",
+                washInstruction: "机洗轻柔，低温烘干",
+                ecoConcept: "有机棉抓绒，保暖同时对环境友好",
+                environmental: {
+                    carbonFootprint: "2.8kg CO₂",
+                    degradationPeriod: "180天",
+                    material: "有机棉抓绒",
+                    origin: "山东青岛",
+                    certification: "GOTS有机认证"
+                }
+            },
+            {
+                id: 11,
+                name: "竹纤维睡衣套装 - 舒适睡眠",
+                price: 199.90,
+                points: 199,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bamboo%20fiber%20pajama%20set%20comfortable%20sleep%20soft%20relaxing&amp;image_size=square",
+                material: "90%竹纤维 + 10%真丝",
+                features: "透气亲肤、柔软舒适、抗菌抑菌",
+                season: "四季皆宜",
+                washInstruction: "建议手洗，30℃以下水温",
+                ecoConcept: "竹纤维与真丝混纺，舒适健康，可持续发展",
+                environmental: {
+                    carbonFootprint: "2.8kg CO₂",
+                    degradationPeriod: "120天",
+                    material: "竹纤维+真丝",
+                    origin: "福建三明",
+                    certification: "FSC认证"
+                }
+            },
+            {
+                id: 12,
+                name: "再生纤维运动文胸 - 支撑透气",
+                price: 129.90,
+                points: 129,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=recycled%20fiber%20sports%20bra%20supportive%20breathable%20athletic%20wear&amp;image_size=square",
+                material: "80%再生尼龙 + 20%弹性纤维",
+                features: "中等支撑、透气速干、海洋友好",
+                season: "四季皆宜",
+                washInstruction: "机洗轻柔模式，低温烘干",
+                ecoConcept: "由回收海洋渔网制成，保护海洋环境",
+                environmental: {
+                    carbonFootprint: "1.5kg CO₂",
+                    degradationPeriod: "365天",
+                    material: "再生尼龙",
+                    origin: "浙江舟山",
+                    certification: "GRS全球回收标准"
+                }
+            },
+            {
+                id: 13,
+                name: "亚麻短裤 - 夏日清凉",
+                price: 99.90,
+                points: 99,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=linen%20shorts%20summer%20cool%20lightweight%20casual%20style&amp;image_size=square",
+                material: "100%欧洲亚麻",
+                features: "透气凉爽、轻薄舒适、自然垂感",
+                season: "春夏季",
+                washInstruction: "建议手洗，悬挂晾干",
+                ecoConcept: "欧洲亚麻品质优良，种植过程环保",
+                environmental: {
+                    carbonFootprint: "1.8kg CO₂",
+                    degradationPeriod: "90天",
+                    material: "欧洲亚麻",
+                    origin: "荷兰林堡",
+                    certification: "欧洲亚麻认证"
+                }
+            },
+            {
+                id: 14,
+                name: "有机棉婴儿服装套装 - 安全呵护",
+                price: 159.90,
+                points: 159,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=organic%20cotton%20baby%20clothing%20set%20safe%20gentle%20soft%20cute%20design&amp;image_size=square",
+                material: "100%有机棉精梳纱",
+                features: "亲肤柔软、安全无刺激、透气舒适",
+                season: "四季皆宜",
+                washInstruction: "手洗轻柔，30℃以下水温",
+                ecoConcept: "有机棉婴儿服装，对宝宝和环境都友好",
+                environmental: {
+                    carbonFootprint: "2.2kg CO₂",
+                    degradationPeriod: "150天",
+                    material: "有机棉精梳纱",
+                    origin: "新疆阿克苏",
+                    certification: "GOTS有机认证"
+                }
+            },
+            {
+                id: 15,
+                name: "积分兑换环保袋 - 时尚实用",
+                price: 0,
+                points: 500,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=eco-friendly%20shopping%20bag%20stylish%20practical%20reusable%20sustainable&amp;image_size=square",
+                material: "100%再生棉帆布",
+                features: "结实耐用、可重复使用、时尚美观",
+                season: "四季皆宜",
+                washInstruction: "可机洗，自然晾干",
+                ecoConcept: "由回收旧衣物制成，减少废弃物",
+                environmental: {
+                    carbonFootprint: "0.8kg CO₂",
+                    degradationPeriod: "240天",
+                    material: "再生棉帆布",
+                    origin: "浙江杭州",
+                    certification: "GRS全球回收标准"
+                }
+            },
+            {
+                id: 16,
+                name: "积分兑换有机棉手帕 - 柔软吸水",
+                price: 0,
+                points: 100,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=organic%20cotton%20handkerchief%20soft%20absorbent%20reusable%20eco-friendly&amp;image_size=square",
+                material: "100%有机棉双层纱布",
+                features: "柔软吸水、亲肤舒适、可重复使用",
+                season: "四季皆宜",
+                washInstruction: "可机洗，轻柔模式",
+                ecoConcept: "有机棉手帕，替代一次性纸巾，减少浪费",
+                environmental: {
+                    carbonFootprint: "0.3kg CO₂",
+                    degradationPeriod: "120天",
+                    material: "有机棉双层纱布",
+                    origin: "新疆石河子",
+                    certification: "GOTS有机认证"
+                }
+            },
+            {
+                id: 17,
+                name: "积分兑换竹纤维毛巾 - 抗菌除味",
+                price: 0,
+                points: 200,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bamboo%20fiber%20towel%20antibacterial%20deodorant%20soft%20absorbent&amp;image_size=square",
+                material: "100%竹纤维",
+                features: "抗菌除味、超强吸水、柔软舒适",
+                season: "四季皆宜",
+                washInstruction: "可机洗，避免热水浸泡",
+                ecoConcept: "竹纤维毛巾，环保可持续，抗菌健康",
+                environmental: {
+                    carbonFootprint: "0.6kg CO₂",
+                    degradationPeriod: "180天",
+                    material: "竹纤维",
+                    origin: "福建三明",
+                    certification: "FSC森林认证"
+                }
+            },
+            {
+                id: 18,
+                name: "积分+现金有机棉T恤 - 超值优惠",
+                price: 49.90,
+                points: 300,
+                image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=organic%20cotton%20t-shirt%20eco-friendly%20comfortable%20casual%20style%20promotional%20offer&amp;image_size=square",
+                material: "100%有机棉",
+                features: "透气舒适、亲肤柔软、经典百搭",
+                season: "春秋冬夏四季皆宜",
+                washInstruction: "30℃以下水洗，避免长时间浸泡",
+                ecoConcept: "有机棉T恤，超值优惠，积分+现金购买",
+                environmental: {
+                    carbonFootprint: "2.5kg CO₂",
+                    degradationPeriod: "180天",
+                    material: "有机棉",
+                    origin: "新疆阿克苏",
+                    certification: "GOTS有机认证"
+                }
+            }
+        ];
+        
+        let currentProductId = 1;
+        let currentModel = 'model1';
+        let currentSize = 'XS';
+        let currentColor = '深色';
+        let currentView = 'front';
+        let isFavorite = false;
+        let currentTryOnImage = null;
+        let tryOnHistory = [];
+        let compareImages = [null, null];
+        
+        // 页面加载时初始化
+        window.onload = function() {
+            // 从localStorage获取产品ID
+            const savedProductId = localStorage.getItem('currentProductId');
+            if (savedProductId) {
+                currentProductId = parseInt(savedProductId);
+            }
+            
+            // 从localStorage加载试穿历史
+            const savedHistory = localStorage.getItem('tryOnHistory');
+            if (savedHistory) {
+                tryOnHistory = JSON.parse(savedHistory);
+                renderHistory();
+            }
+            
+            // 加载产品信息
+            loadProductInfo(currentProductId);
+            
+            // 绑定模特选择事件
+            bindModelSelectionEvents();
+            
+            // 绑定尺码选择事件
+            bindSizeSelectionEvents();
+            
+            // 绑定颜色选择事件
+            bindColorSelectionEvents();
+            
+            // 绑定视图选择事件
+            bindViewSelectionEvents();
+            
+            // 绑定参数调整事件
+            bindParameterEvents();
+        };
+        
+        // 加载产品信息
+        function loadProductInfo(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                document.getElementById('productName').textContent = product.name;
+                document.getElementById('productPrice').textContent = `¥${product.price.toFixed(2)}`;
+                document.getElementById('productPoints').textContent = `购买可获 ${product.points} 碳足迹积分`;
+                document.getElementById('productImage').src = product.image;
+                
+                // 更新产品详情
+                document.getElementById('productMaterial').innerHTML = `<strong>材质：</strong> ${product.material}`;
+                document.getElementById('productFeatures').innerHTML = `<strong>特点：</strong> ${product.features}`;
+                document.getElementById('productSeason').innerHTML = `<strong>适合季节：</strong> ${product.season}`;
+                document.getElementById('productWash').innerHTML = `<strong>洗涤说明：</strong> ${product.washInstruction}`;
+                document.getElementById('productEco').innerHTML = `<strong>环保理念：</strong> ${product.ecoConcept}`;
+                
+                // 更新环保指标
+                document.getElementById('carbonFootprint').textContent = product.environmental.carbonFootprint;
+                document.getElementById('degradationPeriod').textContent = product.environmental.degradationPeriod;
+                document.getElementById('envMaterial').textContent = product.environmental.material;
+                document.getElementById('envOrigin').textContent = product.environmental.origin;
+                document.getElementById('envCertification').textContent = product.environmental.certification;
+            }
+        }
+        
+        // 绑定模特选择事件
+        function bindModelSelectionEvents() {
+            const modelOptions = document.querySelectorAll('.model-option');
+            modelOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    modelOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    currentModel = this.dataset.model;
+                    document.getElementById('previewImage').innerHTML = '<i class="fas fa-magic"></i>';
+                });
+            });
+        }
+        
+        // 绑定尺码选择事件
+        function bindSizeSelectionEvents() {
+            const sizeOptions = document.querySelectorAll('.size-option');
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    currentSize = this.textContent;
+                    showNotification(`已选择尺码: ${currentSize}`);
+                });
+            });
+        }
+        
+        // 绑定颜色选择事件
+        function bindColorSelectionEvents() {
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    currentColor = this.dataset.color;
+                    showNotification(`已选择颜色: ${currentColor}`);
+                });
+            });
+        }
+        
+        // 绑定视图选择事件
+        function bindViewSelectionEvents() {
+            const viewButtons = document.querySelectorAll('.view-btn');
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    viewButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentView = this.dataset.view;
+                    updatePreviewView();
+                });
+            });
+        }
+        
+        // 绑定参数调整事件
+        function bindParameterEvents() {
+            const heightInput = document.getElementById('height');
+            const weightInput = document.getElementById('weight');
+            
+            heightInput.addEventListener('input', function() {
+                document.getElementById('heightValue').textContent = this.value + 'cm';
+            });
+            
+            weightInput.addEventListener('input', function() {
+                document.getElementById('weightValue').textContent = this.value + 'kg';
+            });
+        }
+        
+        // 更新预览视图
+        function updatePreviewView() {
+            const previewImage = document.getElementById('previewImage');
+            if (previewImage.querySelector('img')) {
+                showNotification(`已切换到${currentView === 'front' ? '正面' : currentView === 'side' ? '侧面' : '背面'}视图`);
+            }
+        }
+        
+        // 开始AI试穿
+        function startTryOn() {
+            const loading = document.getElementById('loading');
+            const tryOnButton = document.getElementById('tryOnButton');
+            const previewImage = document.getElementById('previewImage');
+            const saveTryOnBtn = document.getElementById('saveTryOnBtn');
+            
+            loading.classList.add('show');
+            tryOnButton.disabled = true;
+            tryOnButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成中...';
+            
+            setTimeout(() => {
+                loading.classList.remove('show');
+                tryOnButton.disabled = false;
+                tryOnButton.innerHTML = '<i class="fas fa-redo"></i> 重新试穿';
+                
+                const product = products.find(p => p.id === currentProductId);
+                if (product) {
+                    let tryOnImage = '';
+                    
+                    if (currentModel === 'model1') {
+                        tryOnImage = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=young%20man%20wearing%20eco-friendly%20clothing%20stylish%20modern%20fashion%20' + currentColor + '&amp;image_size=portrait_4_3';
+                    } else if (currentModel === 'model2') {
+                        tryOnImage = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=young%20woman%20wearing%20eco-friendly%20clothing%20stylish%20modern%20fashion%20' + currentColor + '&amp;image_size=portrait_4_3';
+                    } else if (currentModel === 'model3') {
+                        tryOnImage = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=middle%20age%20man%20wearing%20sustainable%20clothing%20casual%20style%20' + currentColor + '&amp;image_size=portrait_4_3';
+                    } else if (currentModel === 'model4') {
+                        tryOnImage = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=middle%20age%20woman%20wearing%20sustainable%20clothing%20casual%20style%20' + currentColor + '&amp;image_size=portrait_4_3';
+                    } else if (currentModel === 'model5') {
+                        tryOnImage = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=elderly%20man%20wearing%20comfortable%20eco-friendly%20clothing%20' + currentColor + '&amp;image_size=portrait_4_3';
+                    } else {
+                        tryOnImage = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=elderly%20woman%20wearing%20comfortable%20eco-friendly%20clothing%20' + currentColor + '&amp;image_size=portrait_4_3';
+                    }
+                    
+                    currentTryOnImage = tryOnImage;
+                    previewImage.innerHTML = `&lt;img src="${tryOnImage}" alt="AI试穿效果"&gt;`;
+                    saveTryOnBtn.disabled = false;
+                    showNotification(`AI试穿完成！尺码：${currentSize}，颜色：${currentColor}`);
+                }
+            }, 3000);
+        }
+        
+        // 保存试穿效果
+        function saveTryOn() {
+            if (!currentTryOnImage) {
+                showNotification('请先生成试穿效果！');
+                return;
+            }
+            
+            const product = products.find(p =&gt; p.id === currentProductId);
+            const historyItem = {
+                id: Date.now(),
+                productId: currentProductId,
+                productName: product.name,
+                productImage: product.image,
+                tryOnImage: currentTryOnImage,
+                size: currentSize,
+                color: currentColor,
+                model: currentModel,
+                timestamp: new Date().toLocaleString('zh-CN')
+            };
+            
+            tryOnHistory.unshift(historyItem);
+            if (tryOnHistory.length &gt; 10) {
+                tryOnHistory.pop();
+            }
+            
+            localStorage.setItem('tryOnHistory', JSON.stringify(tryOnHistory));
+            renderHistory();
+            showNotification('试穿效果已保存！');
+        }
+        
+        // 渲染历史记录
+        function renderHistory() {
+            const historyList = document.getElementById('historyList');
+            
+            if (tryOnHistory.length === 0) {
+                historyList.innerHTML = `
+                    &lt;div style="text-align: center; color: #999; padding: 2rem; width: 100%;"&gt;
+                        &lt;i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem;"&gt;&lt;/i&gt;
+                        &lt;p&gt;暂无试穿记录&lt;/p&gt;
+                    &lt;/div&gt;
+                `;
+                return;
+            }
+            
+            historyList.innerHTML = tryOnHistory.map(item =&gt; `
+                &lt;div class="history-item" onclick="loadHistoryItem(${item.id})"&gt;
+                    &lt;img src="${item.tryOnImage}" alt="试穿记录"&gt;
+                    &lt;div class="history-item-name"&gt;${item.productName}&lt;/div&gt;
+                    &lt;div class="history-item-details"&gt;
+                        尺码: ${item.size}&lt;br&gt;
+                        颜色: ${item.color}&lt;br&gt;
+                        ${item.timestamp}
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            `).join('');
+        }
+        
+        // 加载历史记录
+        function loadHistoryItem(id) {
+            const item = tryOnHistory.find(h =&gt; h.id === id);
+            if (item) {
+                currentProductId = item.productId;
+                currentSize = item.size;
+                currentColor = item.color;
+                currentModel = item.model;
+                currentTryOnImage = item.tryOnImage;
+                
+                loadProductInfo(currentProductId);
+                
+                const sizeOptions = document.querySelectorAll('.size-option');
+                sizeOptions.forEach(opt =&gt; {
+                    opt.classList.remove('selected');
+                    if (opt.textContent === currentSize) {
+                        opt.classList.add('selected');
+                    }
+                });
+                
+                const colorOptions = document.querySelectorAll('.color-option');
+                colorOptions.forEach(opt =&gt; {
+                    opt.classList.remove('selected');
+                    if (opt.dataset.color === currentColor) {
+                        opt.classList.add('selected');
+                    }
+                });
+                
+                const modelOptions = document.querySelectorAll('.model-option');
+                modelOptions.forEach(opt =&gt; {
+                    opt.classList.remove('selected');
+                    if (opt.dataset.model === currentModel) {
+                        opt.classList.add('selected');
+                    }
+                });
+                
+                document.getElementById('previewImage').innerHTML = `&lt;img src="${currentTryOnImage}" alt="试穿效果"&gt;`;
+                document.getElementById('saveTryOnBtn').disabled = false;
+                
+                showNotification('已加载历史试穿记录');
+            }
+        }
+        
+        // 清空历史记录
+        function clearHistory() {
+            if (confirm('确定要清空所有试穿记录吗？')) {
+                tryOnHistory = [];
+                localStorage.removeItem('tryOnHistory');
+                renderHistory();
+                showNotification('历史记录已清空');
+            }
+        }
+        
+        // 显示尺码表
+        function showSizeChart() {
+            document.getElementById('sizeChartModal').classList.add('show');
+        }
+        
+        // 关闭尺码表
+        function closeSizeChart() {
+            document.getElementById('sizeChartModal').classList.remove('show');
+        }
+        
+        // 智能推荐尺码
+        function recommendSize() {
+            const height = parseInt(document.getElementById('height').value);
+            const weight = parseInt(document.getElementById('weight').value);
+            
+            let recommendedSize = '';
+            
+            if (height &lt; 160 &amp;&amp; weight &lt; 45) {
+                recommendedSize = 'XS';
+            } else if (height &lt; 165 &amp;&amp; weight &lt; 52) {
+                recommendedSize = 'S';
+            } else if (height &lt; 170 &amp;&amp; weight &lt; 60) {
+                recommendedSize = 'M';
+            } else if (height &lt; 175 &amp;&amp; weight &lt; 68) {
+                recommendedSize = 'L';
+            } else if (height &lt; 180 &amp;&amp; weight &lt; 78) {
+                recommendedSize = 'XL';
+            } else {
+                recommendedSize = 'XXL';
+            }
+            
+            const sizeOptions = document.querySelectorAll('.size-option');
+            sizeOptions.forEach(opt =&gt; {
+                opt.classList.remove('selected');
+                if (opt.textContent === recommendedSize) {
+                    opt.classList.add('selected');
+                    currentSize = recommendedSize;
+                }
+            });
+            
+            showNotification(`根据身高${height}cm、体重${weight}kg，为您推荐尺码：${recommendedSize}`);
+        }
+        
+        // 切换产品
+        function switchProduct(productId) {
+            currentProductId = productId;
+            loadProductInfo(productId);
+            document.getElementById('previewImage').innerHTML = '&lt;i class="fas fa-magic"&gt;&lt;/i&gt;';
+        }
+        
+        // 加入购物车
+        function addToCart() {
+            const product = products.find(p =&gt; p.id === currentProductId);
+            if (product) {
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                
+                const existingItem = cart.find(item =&gt; item.id === product.id &amp;&amp; item.size === currentSize &amp;&amp; item.color === currentColor);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        size: currentSize,
+                        color: currentColor,
+                        quantity: 1
+                    });
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                showNotification(`已将 ${product.name} (${currentSize}/${currentColor}) 加入购物车！`);
+            }
+        }
+        
+        // 立即购买
+        function buyNow() {
+            addToCart();
+            showNotification('正在跳转到购物车页面...');
+            setTimeout(() =&gt; {
+                goBack();
+            }, 1500);
+        }
+        
+        // 切换收藏
+        function toggleFavorite() {
+            isFavorite = !isFavorite;
+            const favoriteBtn = document.getElementById('favoriteBtn');
+            if (isFavorite) {
+                favoriteBtn.classList.add('active');
+                favoriteBtn.innerHTML = '&lt;i class="fas fa-heart"&gt;&lt;/i&gt; 已收藏';
+                showNotification('已添加到收藏夹');
+            } else {
+                favoriteBtn.classList.remove('active');
+                favoriteBtn.innerHTML = '&lt;i class="far fa-heart"&gt;&lt;/i&gt; 收藏';
+                showNotification('已从收藏夹移除');
+            }
+        }
+        
+        // 添加到对比
+        function addToCompare(index) {
+            if (!currentTryOnImage) {
+                showNotification('请先生成试穿效果！');
+                return;
+            }
+            
+            compareImages[index - 1] = currentTryOnImage;
+            const compareItem = document.getElementById(`compareItem${index}`);
+            compareItem.classList.add('has-content');
+            compareItem.innerHTML = `
+                &lt;img src="${currentTryOnImage}" alt="对比${index}"&gt;
+                &lt;p style="color: #666; font-size: 0.9rem; margin-bottom: 0.5rem;"&gt;
+                    尺码: ${currentSize} | 颜色: ${currentColor}
+                &lt;/p&gt;
+                &lt;button class="compare-btn" onclick="addToCompare(${index})"&gt;更新对比${index}&lt;/button&gt;
+            `;
+            showNotification(`已添加到对比${index}`);
+        }
+        
+        // 分享功能
+        function shareTryOn() {
+            const product = products.find(p =&gt; p.id === currentProductId);
+            if (product) {
+                showNotification('正在生成分享链接...');
+                setTimeout(() =&gt; {
+                    showNotification('分享链接已复制到剪贴板！');
+                }, 1000);
+            }
+        }
+        
+        // 返回商品列表
+        function goBack() {
+            window.location.href = '仿淘宝风格绿色可降解衣物购物网站 - 完整版.html';
+        }
+        
+        // 显示通知
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: linear-gradient(135deg, #4CAF50, #45a049);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() =&gt; {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() =&gt; {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2500);
+        }
+        
+        // 添加动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;

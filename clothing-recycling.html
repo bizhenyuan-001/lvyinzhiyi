@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旧衣回收 - 绿韵智衣</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0fde00, #1da013);
+            color: white;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        .back-button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        .main-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .recycling-banner {
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .recycling-banner::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            animation: rotate 10s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .recycling-banner h1 {
+            font-size: 2.5rem;
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .recycling-banner p {
+            color: #555;
+            font-size: 1.2rem;
+            position: relative;
+        }
+        
+        .points-display {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .points-card {
+            text-align: center;
+        }
+        
+        .points-card-title {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .points-card-value {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #0fde00, #1da013);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .points-card i {
+            color: #0fde00;
+            margin-right: 0.3rem;
+        }
+        
+        .recycling-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #0fde00;
+            box-shadow: 0 0 0 4px rgba(15, 222, 0, 0.1);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+            justify-content: center;
+        }
+        
+        .radio-option:hover {
+            border-color: #0fde00;
+            background: rgba(15, 222, 0, 0.05);
+        }
+        
+        .radio-option.selected {
+            border-color: #0fde00;
+            background: rgba(15, 222, 0, 0.1);
+        }
+        
+        .radio-option input {
+            width: 18px;
+            height: 18px;
+            accent-color: #0fde00;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-option:hover {
+            border-color: #0fde00;
+        }
+        
+        .checkbox-option.selected {
+            border-color: #0fde00;
+            background: rgba(15, 222, 0, 0.1);
+        }
+        
+        .checkbox-option input {
+            width: 18px;
+            height: 18px;
+            accent-color: #0fde00;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            max-width: 400px;
+        }
+        
+        .quantity-selector .form-input {
+            flex: 1;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .quantity-btn {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #0fde00;
+            background: white;
+            color: #0fde00;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn:hover {
+            background: linear-gradient(135deg, #0fde00, #1da013);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        
+        .size-card {
+            padding: 1.5rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .size-card:hover {
+            border-color: #0fde00;
+            transform: translateY(-3px);
+        }
+        
+        .size-card.selected {
+            border-color: #0fde00;
+            background: rgba(15, 222, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .size-card .size-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .size-card .size-points {
+            color: #0fde00;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .size-card .size-desc {
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+        
+        .location-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .location-card {
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .location-card:hover {
+            border-color: #0fde00;
+        }
+        
+        .location-card.selected {
+            border-color: #0fde00;
+            background: rgba(15, 222, 0, 0.1);
+        }
+        
+        .location-card h4 {
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+        
+        .location-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #0fde00, #1da013);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .submit-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(15, 222, 0, 0.4);
+        }
+        
+        .submit-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .history-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .clear-history-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-history-btn:hover {
+            background: #ff5252;
+        }
+        
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .history-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .history-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .history-info h4 {
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+        
+        .history-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .history-points {
+            background: linear-gradient(135deg, #0fde00, #1da013);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .knowledge-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .knowledge-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .knowledge-card {
+            background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .knowledge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(15, 222, 0, 0.15);
+            border-color: #0fde00;
+        }
+        
+        .knowledge-card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0fde00, #1da013);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .knowledge-card-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+        
+        .knowledge-card h3 {
+            color: #2e7d32;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .knowledge-card p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1976d2, #42a5f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: #1565c0;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .benefit-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.2rem;
+            background: #fff8e1;
+            border-radius: 10px;
+            border-left: 4px solid #ff9800;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+        }
+        
+        .benefit-icon {
+            flex-shrink: 0;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .benefit-icon i {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .benefit-content h4 {
+            color: #e65100;
+            margin-bottom: 0.3rem;
+        }
+        
+        .benefit-content p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .timeline-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #0fde00, #1da013);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2rem;
+            width: 20px;
+            height: 20px;
+            background: #0fde00;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #0fde00;
+        }
+
+        .timeline-content {
+            background: #f1f8e9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-left: 4px solid #0fde00;
+        }
+
+        .timeline-content h4 {
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-content p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .feedback-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .feedback-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feedback-card {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #ff9800;
+        }
+
+        .feedback-rating {
+            color: #ff9800;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .feedback-text {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .feedback-user {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .feedback-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #0fde00, #1da013);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .feedback-name {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .feedback-date {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .location-card-details {
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px dashed #e0e0e0;
+        }
+
+        .location-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .location-detail-item i {
+            color: #0fde00;
+            margin-top: 0.2rem;
+            min-width: 16px;
+        }
+
+        .location-detail-item span {
+            color: #666;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .badge-green {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge-orange {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .badge-blue {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        @media (max-width: 768px) {
+            .recycling-banner h1 {
+                font-size: 1.8rem;
+            }
+            
+            .size-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .radio-group {
+                flex-direction: column;
+            }
+            
+            .history-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+            
+            .knowledge-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .feedback-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>绿韵智衣 - 旧衣回收</span>
+            </div>
+            <button class="back-button" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                返回主页
+            </button>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="recycling-banner">
+            <h1><i class="fas fa-recycle"></i> 旧衣回收，绿色环保</h1>
+            <p>回收旧衣物，赠送碳足迹积分，让环保更有价值！</p>
+        </div>
+        
+        <div class="points-display">
+            <div class="points-card">
+                <div class="points-card-title"><i class="fas fa-seedling"></i> 当前积分余额</div>
+                <div class="points-card-value" id="currentPoints">0</div>
+            </div>
+            <div class="points-card" style="border-left: 2px solid #eee; padding-left: 2rem;">
+                <div class="points-card-title"><i class="fas fa-gift"></i> 预计可获得积分</div>
+                <div class="points-card-value" id="estimatedPoints">0</div>
+            </div>
+        </div>
+        
+        <div class="recycling-section">
+            <h2 class="section-title">
+                <i class="fas fa-edit"></i>
+                在线预约回收
+            </h2>
+            
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-user"></i> 姓名</label>
+                <input type="text" class="form-input" id="userName" placeholder="请输入您的姓名">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-phone"></i> 联系电话</label>
+                <input type="tel" class="form-input" id="userPhone" placeholder="请输入您的联系电话">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-truck"></i> 回收方式</label>
+                <div class="radio-group" id="recyclingMethod">
+                    <div class="radio-option selected" onclick="selectMethod('home')">
+                        <input type="radio" name="method" value="home" checked>
+                        <span><i class="fas fa-home"></i> 上门取件</span>
+                    </div>
+                    <div class="radio-option" onclick="selectMethod('dropoff')">
+                        <input type="radio" name="method" value="dropoff">
+                        <span><i class="fas fa-map-marker-alt"></i> 指定地点投递</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group" id="addressGroup">
+                <label class="form-label"><i class="fas fa-map-marked-alt"></i> 取件地址</label>
+                <input type="text" class="form-input" id="userAddress" placeholder="请输入详细取件地址">
+            </div>
+            
+            <div class="form-group" id="timeGroup">
+                <label class="form-label"><i class="fas fa-clock"></i> 预约时间</label>
+                <input type="datetime-local" class="form-input" id="appointmentTime">
+            </div>
+            
+            <div class="form-group" id="locationGroup" style="display: none;">
+                <label class="form-label"><i class="fas fa-store"></i> 选择回收点</label>
+                <div class="location-options" id="locationOptions">
+                    <div class="location-card" onclick="selectLocation(this, 'location1')">
+                        <h4><i class="fas fa-star" style="color: #0fde00;"></i> 绿韵智衣旗舰店</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> 地址：河南财经政法大学</p>
+                        <p><i class="fas fa-clock"></i> 营业时间：9:00-21:00</p>
+                        <div class="location-card-details">
+                            <div class="location-detail-item">
+                                <i class="fas fa-phone"></i>
+                                <span>联系电话：15103759178</span>
+                            </div>
+                            <div class="location-detail-item">
+                                <i class="fas fa-route"></i>
+                                <span>服务范围：金水区全区</span>
+                            </div>
+                            <div class="location-detail-item">
+                                <i class="fas fa-certificate"></i>
+                                <span>特色服务：免费清洗消毒、积分翻倍</span>
+                            </div>
+                            <div>
+                                <span class="badge badge-green">旗舰服务</span>
+                                <span class="badge badge-orange">24h客服</span>
+                                <span class="badge badge-blue">免费停车</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="location-card" onclick="selectLocation(this, 'location2')">
+                        <h4><i class="fas fa-star" style="color: #0fde00;"></i> 环保回收站（文北校区）</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> 地址：郑州市金水区80号</p>
+                        <p><i class="fas fa-clock"></i> 营业时间：8:00-20:00</p>
+                        <div class="location-card-details">
+                            <div class="location-detail-item">
+                                <i class="fas fa-phone"></i>
+                                <span>联系电话：13253309266</span>
+                            </div>
+                            <div class="location-detail-item">
+                                <i class="fas fa-route"></i>
+                                <span>服务范围：二七区、管城回族区</span>
+                            </div>
+                            <div class="location-detail-item">
+                                <i class="fas fa-certificate"></i>
+                                <span>特色服务：大型回收设备、批量优惠</span>
+                            </div>
+                            <div>
+                                <span class="badge badge-green">交通便利</span>
+                                <span class="badge badge-blue">批量回收</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="location-card" onclick="selectLocation(this, 'location3')">
+                        <h4><i class="fas fa-star" style="color: #0fde00;"></i> 文南环保服务点</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> 地址：河南财经政法大学文南校区</p>
+                        <p><i class="fas fa-clock"></i> 营业时间：10:00-19:00</p>
+                        <div class="location-card-details">
+                            <div class="location-detail-item">
+                                <i class="fas fa-phone"></i>
+                                <span>联系电话：19836091493</span>
+                            </div>
+                            <div class="location-detail-item">
+                                <i class="fas fa-route"></i>
+                                <span>服务范围：中原区、高新区</span>
+                            </div>
+                            <div class="location-detail-item">
+                                <i class="fas fa-certificate"></i>
+                                <span>特色服务：社区服务、上门预约</span>
+                            </div>
+                            <div>
+                                <span class="badge badge-green">社区服务</span>
+                                <span class="badge badge-orange">周末不休</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-layer-group"></i> 衣物件数</label>
+                <div class="quantity-selector">
+                    <button class="quantity-btn" onclick="changeQuantity(-1)">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" class="form-input" id="clothingQuantity" value="1" min="1" max="100" onchange="updateEstimatedPoints()">
+                    <button class="quantity-btn" onclick="changeQuantity(1)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <p style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">
+                    <i class="fas fa-info-circle"></i> 小=30积分/件，中=60积分/件，大=100积分/件，超大=150积分/件
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-comment-dots"></i> 备注信息</label>
+                <textarea class="form-input" id="remarks" rows="3" placeholder="请输入备注信息，例如衣物的特殊情况、取件的特殊要求等..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-tshirt"></i> 衣物大小（选择后可获得对应积分）</label>
+                <div class="size-options" id="sizeOptions">
+                    <div class="size-card" onclick="selectSize(this, 'small', 30)">
+                        <div class="size-name">小</div>
+                        <div class="size-points">+30积分</div>
+                        <div class="size-desc">适合儿童或小件</div>
+                    </div>
+                    <div class="size-card" onclick="selectSize(this, 'medium', 60)">
+                        <div class="size-name">中</div>
+                        <div class="size-points">+60积分</div>
+                        <div class="size-desc">普通成人衣物</div>
+                    </div>
+                    <div class="size-card" onclick="selectSize(this, 'large', 100)">
+                        <div class="size-name">大</div>
+                        <div class="size-points">+100积分</div>
+                        <div class="size-desc">外套、大衣等</div>
+                    </div>
+                    <div class="size-card" onclick="selectSize(this, 'xlarge', 150)">
+                        <div class="size-name">超大</div>
+                        <div class="size-points">+150积分</div>
+                        <div class="size-desc">棉被、批量衣物</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="submit-button" onclick="submitRecycling()">
+                <i class="fas fa-paper-plane"></i>
+                提交预约
+            </button>
+        </div>
+        
+        <div class="knowledge-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                回收知识科普
+            </h2>
+            
+            <div class="knowledge-cards">
+                <div class="knowledge-card">
+                    <div class="knowledge-card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>旧衣回收的意义</h3>
+                    <p>旧衣回收是推动循环经济发展的重要举措，它不仅可以减少资源浪费，还能促进社会公益事业发展。每回收一件旧衣，都是在为地球减负，为环保事业贡献一份力量。</p>
+                </div>
+                
+                <div class="knowledge-card">
+                    <div class="knowledge-card-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>环保的重要性</h3>
+                    <p>纺织行业是全球污染最严重的行业之一，旧衣回收可以显著降低纺织业的环境影响。通过回收再利用，我们能有效减少新面料生产带来的碳排放、水资源消耗和化学污染。</p>
+                </div>
+                
+                <div class="knowledge-card">
+                    <div class="knowledge-card-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3>资源循环利用</h3>
+                    <p>旧衣物经过分拣、清洗、消毒后，可通过多种方式再利用：品相较好的衣物可捐赠给需要的人；适合再加工的可制成新面料或工业用料；不可再穿的可分解为纤维材料用于其他用途。</p>
+                </div>
+            </div>
+            
+            <div class="impact-stats">
+                <div class="stat-item">
+                    <div class="stat-number">2,100</div>
+                    <div class="stat-label">升水/每件</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2.5</div>
+                    <div class="stat-label">公斤CO₂/件</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">可回收利用率</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10亿+</div>
+                    <div class="stat-label">年被丢弃衣物</div>
+                </div>
+            </div>
+            
+            <h3 style="color: #2e7d32; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.4rem;">
+                <i class="fas fa-star"></i> 旧衣回收的好处
+            </h3>
+            
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>节约水资源</h4>
+                        <p>回收一件棉T恤可节约约2100升水，相当于一个人10天的饮水量</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>减少碳排放</h4>
+                        <p>每回收1公斤衣物，可减少约3.6公斤二氧化碳排放</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>减少垃圾填埋</h4>
+                        <p>旧衣物在填埋场中需要数十年甚至上百年才能降解</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>助力公益事业</h4>
+                        <p>品质良好的旧衣经过处理后可捐赠给有需要的人群</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>获得积分奖励</h4>
+                        <p>参与旧衣回收可获得碳足迹积分，兑换精美礼品</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h4>传递环保理念</h4>
+                        <p>带动身边的人一起参与，共同建设绿色家园</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <h2 class="section-title">
+                <i class="fas fa-route"></i>
+                回收流程
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-edit"></i> 步骤一：提交预约</h4>
+                        <p>填写回收表单，选择回收方式、预约时间和地址。系统将自动计算您可获得的积分。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-phone-volume"></i> 步骤二：确认订单</h4>
+                        <p>客服人员将在1小时内与您联系，确认预约信息和特殊需求。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-truck-pickup"></i> 步骤三：上门取件/投递</h4>
+                        <p>我们的工作人员将准时上门取件，或您可自行前往回收点投递。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-search"></i> 步骤四：分类评估</h4>
+                        <p>回收的衣物将进行专业分类、清洗、消毒和质量评估。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-coins"></i> 步骤五：积分到账</h4>
+                        <p>评估完成后，积分将在24小时内发放到您的账户，可用于兑换礼品。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-recycle"></i> 步骤六：循环利用</h4>
+                        <p>衣物将根据品质进行捐赠、再加工或降解处理，实现资源循环利用。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feedback-section">
+            <h2 class="section-title">
+                <i class="fas fa-comments"></i>
+                用户反馈
+            </h2>
+            <div class="feedback-cards">
+                <div class="feedback-card">
+                    <div class="feedback-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="feedback-text">"服务非常好！上门准时，工作人员态度很好，积分到账也很快。以后还会继续支持！"</p>
+                    <div class="feedback-user">
+                        <div class="feedback-avatar">王</div>
+                        <div>
+                            <div class="feedback-name">王女士</div>
+                            <div class="feedback-date">2025-12-20</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feedback-card">
+                    <div class="feedback-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="feedback-text">"回收流程很简单，预约也很方便。希望以后能增加更多的回收点，方便更多人参与环保！"</p>
+                    <div class="feedback-user">
+                        <div class="feedback-avatar">李</div>
+                        <div>
+                            <div class="feedback-name">李先生</div>
+                            <div class="feedback-date">2025-12-15</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feedback-card">
+                    <div class="feedback-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="feedback-text">"已经第三次使用了，每次都很满意。积分兑换的商品质量也很好，真的是环保又实惠！"</p>
+                    <div class="feedback-user">
+                        <div class="feedback-avatar">张</div>
+                        <div>
+                            <div class="feedback-name">张小姐</div>
+                            <div class="feedback-date">2025-12-10</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feedback-card">
+                    <div class="feedback-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                    <p class="feedback-text">"整体体验不错，就是希望能提前短信提醒一下取件时间，这样就更完美了！"</p>
+                    <div class="feedback-user">
+                        <div class="feedback-avatar">赵</div>
+                        <div>
+                            <div class="feedback-name">赵先生</div>
+                            <div class="feedback-date">2025-12-05</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feedback-card">
+                    <div class="feedback-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="feedback-text">"作为一个环保主义者，真的很开心有这样的平台！让旧衣物有了新的归宿，支持支持！"</p>
+                    <div class="feedback-user">
+                        <div class="feedback-avatar">陈</div>
+                        <div>
+                            <div class="feedback-name">陈女士</div>
+                            <div class="feedback-date">2025-12-01</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <div class="history-header">
+                <h2 class="section-title" style="border: none; margin: 0; padding: 0;">
+                    <i class="fas fa-history"></i>
+                    历史预约记录
+                </h2>
+                <button class="clear-history-btn" onclick="clearHistory()">
+                    <i class="fas fa-trash"></i> 清空记录
+                </button>
+            </div>
+            <div class="history-list" id="historyList">
+                <div style="text-align: center; color: #999; padding: 2rem;">
+                    <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <p>暂无预约记录</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMethod = 'home';
+        let selectedSize = null;
+        let selectedPoints = 0;
+        let selectedLocation = null;
+        let basePointsPerItem = 0;
+        let recyclingHistory = [];
+        
+        // 更新积分显示
+        function updatePointsDisplay() {
+            const totalPoints = parseInt(localStorage.getItem('totalPoints') || '0');
+            document.getElementById('currentPoints').textContent = totalPoints;
+        }
+        
+        // 更新预计积分
+        function updateEstimatedPoints() {
+            const quantity = parseInt(document.getElementById('clothingQuantity').value) || 1;
+            const totalPoints = basePointsPerItem * quantity;
+            document.getElementById('estimatedPoints').textContent = totalPoints;
+            selectedPoints = totalPoints;
+        }
+        
+        // 改变件数
+        function changeQuantity(delta) {
+            const input = document.getElementById('clothingQuantity');
+            let currentValue = parseInt(input.value) || 1;
+            currentValue = Math.max(1, Math.min(100, currentValue + delta));
+            input.value = currentValue;
+            updateEstimatedPoints();
+        }
+        
+        // 页面加载
+        window.onload = function() {
+            const savedHistory = localStorage.getItem('recyclingHistory');
+            if (savedHistory) {
+                recyclingHistory = JSON.parse(savedHistory);
+                renderHistory();
+            }
+            updatePointsDisplay();
+        };
+        
+        // 返回主页
+        function goBack() {
+            window.location.href = '仿淘宝风格绿色可降解衣物购物网站 - 完整版.html';
+        }
+        
+        // 选择回收方式
+        function selectMethod(method) {
+            currentMethod = method;
+            const options = document.querySelectorAll('#recyclingMethod .radio-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            const addressGroup = document.getElementById('addressGroup');
+            const timeGroup = document.getElementById('timeGroup');
+            const locationGroup = document.getElementById('locationGroup');
+            
+            if (method === 'home') {
+                addressGroup.style.display = 'block';
+                timeGroup.style.display = 'block';
+                locationGroup.style.display = 'none';
+            } else {
+                addressGroup.style.display = 'none';
+                timeGroup.style.display = 'none';
+                locationGroup.style.display = 'block';
+            }
+        }
+        
+        // 选择回收点
+        function selectLocation(element, locationId) {
+            const locations = document.querySelectorAll('.location-card');
+            locations.forEach(loc => loc.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedLocation = locationId;
+        }
+        
+        // 选择衣物大小
+        function selectSize(element, size, points) {
+            const sizes = document.querySelectorAll('.size-card');
+            sizes.forEach(s => s.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedSize = size;
+            basePointsPerItem = points;
+            updateEstimatedPoints();
+        }
+        
+        // 提交预约
+        function submitRecycling() {
+            const name = document.getElementById('userName').value.trim();
+            const phone = document.getElementById('userPhone').value.trim();
+            
+            if (!name) {
+                showNotification('请输入姓名！');
+                return;
+            }
+            if (!phone) {
+                showNotification('请输入联系电话！');
+                return;
+            }
+            if (!selectedSize) {
+                showNotification('请选择衣物大小！');
+                return;
+            }
+            if (currentMethod === 'home') {
+                const address = document.getElementById('userAddress').value.trim();
+                const time = document.getElementById('appointmentTime').value;
+                if (!address) {
+                    showNotification('请输入取件地址！');
+                    return;
+                }
+                if (!time) {
+                    showNotification('请选择预约时间！');
+                    return;
+                }
+            } else {
+                if (!selectedLocation) {
+                    showNotification('请选择回收点！');
+                    return;
+                }
+            }
+            
+            const record = {
+                id: Date.now(),
+                name,
+                phone,
+                method: currentMethod,
+                address: currentMethod === 'home' ? document.getElementById('userAddress').value : null,
+                time: currentMethod === 'home' ? document.getElementById('appointmentTime').value : null,
+                location: selectedLocation,
+                size: selectedSize,
+                points: selectedPoints,
+                quantity: parseInt(document.getElementById('clothingQuantity').value),
+                remarks: document.getElementById('remarks').value,
+                timestamp: new Date().toLocaleString('zh-CN')
+            };
+            
+            recyclingHistory.unshift(record);
+            localStorage.setItem('recyclingHistory', JSON.stringify(recyclingHistory));
+            
+            let totalPoints = parseInt(localStorage.getItem('totalPoints') || '0');
+            totalPoints += selectedPoints;
+            localStorage.setItem('totalPoints', totalPoints.toString());
+            
+            updatePointsDisplay();
+            updateEstimatedPoints();
+            
+            showNotification(`预约成功！获得 ${selectedPoints} 碳足迹积分！`);
+            
+            document.getElementById('userName').value = '';
+            document.getElementById('userPhone').value = '';
+            document.getElementById('userAddress').value = '';
+            document.getElementById('appointmentTime').value = '';
+            document.getElementById('remarks').value = '';
+            selectedSize = null;
+            selectedPoints = 0;
+            selectedLocation = null;
+            basePointsPerItem = 0;
+            document.getElementById('clothingQuantity').value = 1;
+            document.querySelectorAll('.size-card').forEach(s => s.classList.remove('selected'));
+            document.querySelectorAll('.location-card').forEach(l => l.classList.remove('selected'));
+            
+            updateEstimatedPoints();
+            renderHistory();
+        }
+        
+        // 渲染历史记录
+        function renderHistory() {
+            const historyList = document.getElementById('historyList');
+            
+            if (recyclingHistory.length === 0) {
+                historyList.innerHTML = `
+                    <div style="text-align: center; color: #999; padding: 2rem;">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <p>暂无预约记录</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            historyList.innerHTML = recyclingHistory.map(record => {
+                return `
+                <div class="history-item">
+                    <div class="history-info">
+                        <h4><i class="fas fa-calendar-check"></i> ${record.timestamp}</h4>
+                        <p>
+                            ${record.name} | 
+                            ${record.method === 'home' ? '上门取件' : '指定地点投递'} | 
+                            衣物: ${record.size} | 
+                            件数: ${record.quantity}件
+                        </p>
+                        ${record.remarks ? `<p><i class="fas fa-comment"></i> 备注: ${record.remarks}</p>` : ''}
+                        ${record.method === 'home' ? `<p><i class="fas fa-map-marker-alt"></i> ${record.address} | ${record.time}</p>` : ''}
+                    </div>
+                    <div class="history-points">
+                        <i class="fas fa-seedling"></i> +${record.points}积分
+                    </div>
+                </div>
+            `}).join('');
+        }
+        
+        // 清空历史
+        function clearHistory() {
+            if (confirm('确定要清空所有预约记录吗？')) {
+                recyclingHistory = [];
+                localStorage.removeItem('recyclingHistory');
+                renderHistory();
+                showNotification('历史记录已清空');
+            }
+        }
+        
+        // 显示通知
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
